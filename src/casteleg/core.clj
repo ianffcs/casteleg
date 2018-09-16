@@ -75,6 +75,7 @@
 
 (defn -main
   [& args]
+  (assert (string? telegram-token) "Please set your env var 'TELEGRAM_TOKEN'")
   (swap! telegram (fn [x] (when (future? x) (future-cancel x)) nil))
   (swap! browser (fn [x] (when x (async/close! x)) nil))
   (reset! browser (init-browser))
